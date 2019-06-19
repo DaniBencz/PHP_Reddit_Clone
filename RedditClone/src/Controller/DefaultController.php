@@ -52,4 +52,41 @@ class DefaultController extends AbstractController
     $entityManager->flush();
     return $this->redirectToRoute('reddit_index');
   }
+
+  /**
+   * @Route("/upvote/{id}", name="upvote", methods={"POST"})
+   */
+  function upvote($id)
+  {
+    $posts = $this->postRepository->findAll();
+    $post = $this->postRepository->find($id);
+    $increment = $post->getRating() + 1;
+    $post->setRating($increment);
+    $entityManager = $this->getDoctrine()->getManager();
+    $entityManager->persist($post);;
+    $entityManager->flush();
+    return $this->render('index.html.twig', [
+      'posts' => $posts,
+    ]);
+  }
+
+  /**
+   * @Route("/downvote/{id}", name="downvote", methods={"POST"})
+   */
+  function downvote($id)
+  {
+    $posts = $this->postRepository->findAll();
+    $post = $this->postRepository->find($id);
+    if ($post->getRating() === 0) {
+      return $this->render('index.html.twig');
+    }
+    $increment = $post->getRating() - 1;
+    $post->setRating($increment);
+    $entityManager = $this->getDoctrine()->getManager();
+    $entityManager->persist($post);;
+    $entityManager->flush();
+    return $this->render('index.html.twig', [
+      'posts' => $posts,
+    ]);
+  }
 }
