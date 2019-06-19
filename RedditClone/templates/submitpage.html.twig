@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  <h1>Submit a new post</h1>
+  <form action="/save" method="post">
+    <div>
+      <label for="title">Title:</label>
+      <input id="title" name="title" type="text"></input><br>
+    </div>
+    <div>
+      <label for="title">URL:</label>
+      <input id="url" name="url" type="text"></input>
+    </div>
+    <input id="submit" type="submit" value="Submit"></input>
+  </form>
+{% endblock %}
