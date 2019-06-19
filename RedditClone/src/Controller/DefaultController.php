@@ -24,8 +24,10 @@ class DefaultController extends AbstractController
    */
   function index()
   {
-    //$post = $this->postRepository->findAll();
-    return $this->render('index.html.twig');
+    $posts = $this->postRepository->findAll();
+    return $this->render('index.html.twig', [
+      'posts' => $posts,
+    ]);
   }
 
   /**

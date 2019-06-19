@@ -26,6 +26,11 @@ class Post
      */
     private $url;
 
+    /**
+     * @ORM\Column(type="integer", options={"default" : 0})
+     */
+    private $rating = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +56,18 @@ class Post
     public function setUrl(string $url): self
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function getRating(): ?int
+    {
+        return $this->rating;
+    }
+
+    public function setRating(int $rating): self
+    {
+        $this->rating = $rating;
 
         return $this;
     }
