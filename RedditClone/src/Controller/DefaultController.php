@@ -5,10 +5,10 @@ namespace App\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-//use Symfony\Bundle\FrameworkBundle\Entity\Post;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\PostRepository;
 use App\Entity\Post;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class DefaultController extends AbstractController
 {
@@ -41,11 +41,19 @@ class DefaultController extends AbstractController
   /**
    * @Route("/save", name="save_post", methods={"POST"})
    */
-  function save(Request $request)
+  function save(Request $request, ValidatorInterface $validator)
   {
     $post = new Post();
     $post->setTitle($request->request->get('title'));
     $post->setUrl($request->request->get('url'));
+    $errors = $validator->validate($post);
+
+    if (count($errors) > 0) {
+      $posts = $this->postRepository->findAll();
+      return $this->render('index.html.twig', [
+        'posts' => $posts,
+      ]);
+    }
 
     $entityManager = $this->getDoctrine()->getManager();
     $entityManager->persist($post);
