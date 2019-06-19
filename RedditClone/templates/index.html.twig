@@ -2,8 +2,8 @@
 
 {% block body %}
   <a href="/submitpage">Submit new post</a>
-  <h1>Trending posts</h1>
-  <table>
+  <h1>Trending posts</h1><br>
+  <table class="table">
     <tr>
       <th>Rating</th>
       <th>Vote!</th>
@@ -24,7 +24,7 @@
           </form>
         </td>
         <td>
-          {#needs work to point to absolute url#}
+          {#no need for absolute url, gets validated at input#}
           <a href="{{post.url}}">{{post.title}}</a>
         </td>
       </tr>

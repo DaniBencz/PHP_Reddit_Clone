@@ -3,13 +3,13 @@
 {% block body %}
   <h1>Submit a new post</h1>
   <form action="/save" method="post">
-    <div>
+    <div class="form-group">
       <label for="title">Title:</label>
-      <input id="title" name="title" type="text"></input><br>
+      <input id="title" name="title" type="text" class="form-control"></input><br>
     </div>
-    <div>
+    <div class="form-group">
       <label for="title">URL:</label>
-      <input id="url" name="url" type="text"></input>
+      <input id="url" name="url" type="url" class="form-control"></input>
     </div>
     <input id="submit" type="submit" value="Submit"></input>
   </form>

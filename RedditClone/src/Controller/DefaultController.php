@@ -77,14 +77,13 @@ class DefaultController extends AbstractController
   {
     $posts = $this->postRepository->findAll();
     $post = $this->postRepository->find($id);
-    if ($post->getRating() === 0) {
-      return $this->render('index.html.twig');
+    if ($post->getRating() !== 0) {
+      $increment = $post->getRating() - 1;
+      $post->setRating($increment);
+      $entityManager = $this->getDoctrine()->getManager();
+      $entityManager->persist($post);;
+      $entityManager->flush();
     }
-    $increment = $post->getRating() - 1;
-    $post->setRating($increment);
-    $entityManager = $this->getDoctrine()->getManager();
-    $entityManager->persist($post);;
-    $entityManager->flush();
     return $this->render('index.html.twig', [
       'posts' => $posts,
     ]);
